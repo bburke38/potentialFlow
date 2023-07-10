@@ -57,22 +57,28 @@ def calcStreamfunction(zeta, U=1.0, alpha=(np.pi*10/180), a=1.1, xi0=-0.1, eta0=
     return np.imag(F)
 
 
-def F_zeta(x):
+def F_circle(x):
     z = x[0] + x[1]*1j
 
     F = calcStreamfunction(z)
 
     return F
 
-def F_xy(x):
-    zeta = x[0] + x[1]*1j
+def calcPsiFromZeta(xy, U=1.0, alpha=(np.pi*10/180), a=1.1, xi0=-0.1, eta0=0.1):
+    """
+    Calculate stream function for a real-valued set of input coordinates.
 
-    z = JtoZeta(zeta)
+    Parameters
+    ----------
+    xy: set of coordinates in real space
+    """
+    z = xy[0] + xy[1]*1j
 
-    F = calcStreamfunction(z)
+    zeta = JtoZeta(z)
+
+    F = calcStreamfunction(zeta, U, alpha, a, xi0, eta0)
 
     return F
-
 class JFoil:
     def __init__(self, a: int, xi0=0, eta0=0):
 
